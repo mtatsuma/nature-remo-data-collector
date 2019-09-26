@@ -10,7 +10,7 @@ class NatureRemoClient(object):
         else:
             self.base_url = 'https://api.nature.global'
         token = os.environ.get('REMO_TOKEN')
-        if token:
+        if not token:
             raise Exception('Please set your API token to REMO_TOKEN')
         self.headers = {
             'accept': 'application/json',

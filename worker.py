@@ -1,7 +1,7 @@
 import os
 import datetime
-import lib.remoclient
-import lib.spreadsheet
+import lib.remoclient as remoclient
+import lib.spreadsheet as spreadsheet
 
 
 def run():
