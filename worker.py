@@ -1,18 +1,13 @@
 import os
 import datetime
-import remoclient
-import spreadsheet
+import lib.remoclient
+import lib.spreadsheet
 
-def update_column(sheet, line, values):
-    cells = sheet.range(line, 1, line, len(values))
-    for i in range(len(cells)):
-        cells[i].value = values[i]
-    sheet.update_cells(cells)
 
-if __name__ == "__main__":
+def run():
     gs = spreadsheet.SpreadSheet()
-    sheet = gs.open_sheet(filename=os.environ['SHEET_NAME'])
-    last_line = len(sheet.col_values(1))
+    gs.open_sheet(filename=os.environ['SHEET_NAME'])
+    last_line = gs.get_col_length()
     if last_line == 0:
         header = [
             'timestamp',
@@ -26,7 +21,7 @@ if __name__ == "__main__":
             'motion',
             'motion_created_at'
         ]
-        update_column(sheet, 1, header)
+        gs.update_column(1, header)
         last_line += 1
 
     now = datetime.datetime.now(datetime.timezone.utc)
@@ -45,5 +40,9 @@ if __name__ == "__main__":
         events['il']['created_at'],
         events['mo']['val'],
         events['mo']['created_at']
-    ]        
-    update_column(sheet, last_line+1, values)
+    ]
+    gs.update_column(last_line+1, values)
+
+
+if __name__ == "__main__":
+    run()
