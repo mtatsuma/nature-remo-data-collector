@@ -3,6 +3,7 @@ import sys
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
+
 class SpreadSheet(object):
     def __init__(self):
         scope = ['https://spreadsheets.google.com/feeds',
@@ -16,7 +17,8 @@ class SpreadSheet(object):
             "client_id": os.environ['GS_CLIENT_ID'],
             "auth_uri": os.environ['GS_AUTH_URI'],
             "token_uri": os.environ['GS_TOKEN_URI'],
-            "auth_provider_x509_cert_url": os.environ['GS_AUTH_PROVIDER_CERT_URL'],
+            "auth_provider_x509_cert_url": os.environ[
+                'GS_AUTH_PROVIDER_CERT_URL'],
             "client_x509_cert_url":  os.environ['GS_CLIENT_CERT_URL']
         }
         cred = ServiceAccountCredentials.from_json_keyfile_dict(
@@ -24,4 +26,13 @@ class SpreadSheet(object):
         self.gs = gspread.authorize(cred)
 
     def open_sheet(self, filename):
-        return self.gs.open(filename).sheet1
+        self.sheet = self.gs.open(filename).sheet1
+
+    def get_col_length(self, row=1):
+        return len(self.sheet.col_values(row))
+
+    def update_column(self, line, values):
+        cells = self.sheet.range(line, 1, line, len(values))
+        for i in range(len(cells)):
+            cells[i].value = values[i]
+            self.sheet.update_cells(cells)
