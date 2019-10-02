@@ -1,0 +1,13 @@
+heroku config:set REMO_TOKEN=
+heroku config:set SHEET_NAME=
+heroku config:set GS_CREDENTIAL_TYPE=
+heroku config:set GS_PROJECT_ID=
+heroku config:set GS_PRIVATE_KEY_ID=
+heroku config:set GS_PRIVATE_KEY=
+heroku config:set GS_CLIENT_EMAIL=
+heroku config:set GS_CLIENT_ID=
+heroku config:set GS_AUTH_URI=
+heroku config:set GS_TOKEN_URI=
+heroku config:set GS_AUTH_PROVIDER_CERT_URL=
+heroku config:set GS_CLIENT_CERT_URL=
+heroku config:set REMO_CLOCK_INTERVAL=
